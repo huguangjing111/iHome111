@@ -4,6 +4,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import redis
 from flask_wtf.csrf import CSRFProtect
+from flask_script import Manager
 
 
 class Config(object):
@@ -39,6 +40,9 @@ redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
 # 开启CSRF保护
 CSRFProtect(app)
 
+# 创建脚本管理器对象
+manager = Manager(app)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -50,4 +54,6 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run()
+    # app.run()
+
+    manager.run()

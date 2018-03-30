@@ -1,10 +1,12 @@
 # -*- coding:utf-8 -*-
 
 
-# from iHome import app, db
+from iHome import db
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from iHome import get_app
+
+# from iHome import redis_store
 
 
 # 创建app
@@ -15,7 +17,7 @@ app = get_app('development')
 manager = Manager(app)
 
 # 让app和db在迁移时建立关联
-# Migrate(app, db)
+Migrate(app, db)
 # 将数据库迁移脚本添加到甲苯管理器
 manager.add_command('db', MigrateCommand)
 
@@ -24,7 +26,8 @@ manager.add_command('db', MigrateCommand)
 def index():
 
     # 测试redis数据库
-    # redis_store.set('name', 'sz07')
+    # from iHome import redis_store
+    # redis_store.set('name', 'heheheehehehehhe')
 
     # 测试session:flask自带的session模块，用于存储session
     # from flask import session

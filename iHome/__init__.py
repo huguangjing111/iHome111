@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+from werkzeug.routing import BaseConverter
 
 
 from flask import Flask
@@ -7,22 +8,29 @@ import redis
 from flask_wtf.csrf import CSRFProtect
 # session在flask中的扩展包
 from flask_session import Session
-from config import Config
+# from config import Config, DevelopmentConfig, ProductionConfig
+from config import configs
 
 
-app = Flask(__name__)
+# default_config == config_name
+def get_app(config_name):
+    """工厂方法：根据不同的配置信息，实例化出不同的app"""
 
-# 加载配置
-app.config.from_object(Config)
+    app = Flask(__name__)
 
-# 创建连接到mysql数据库的对象
-db = SQLAlchemy(app)
+    # 加载配置
+    app.config.from_object(configs[config_name])
 
-# 创建连接到redis数据库的对象
-redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
+    # 创建连接到mysql数据库的对象
+    db = SQLAlchemy(app)
 
-# 开启CSRF保护
-CSRFProtect(app)
+    # 创建连接到redis数据库的对象
+    redis_store = redis.StrictRedis(host=configs[config_name].REDIS_HOST, port=configs[config_name].REDIS_PORT)
 
-# 使用session在flask扩展实现将session数据存储在redis
-Session(app)
+    # 开启CSRF保护
+    CSRFProtect(app)
+
+    # 使用session在flask扩展实现将session数据存储在redis
+    Session(app)
+
+    return app

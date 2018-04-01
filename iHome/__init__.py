@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-from werkzeug.routing import BaseConverter
 
 
 from flask import Flask
@@ -8,8 +7,8 @@ import redis
 from flask_wtf.csrf import CSRFProtect
 # session在flask中的扩展包
 from flask_session import Session
-# from config import Config, DevelopmentConfig, ProductionConfig
 from config import configs
+from iHome.index import api
 
 
 # 创建可以被外界导入的数据库连接对象
@@ -40,5 +39,8 @@ def get_app(config_name):
 
     # 使用session在flask扩展实现将session数据存储在redis
     Session(app)
+
+    # 注册蓝图
+    app.register_blueprint(api)
 
     return app

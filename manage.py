@@ -22,21 +22,9 @@ Migrate(app, db)
 manager.add_command('db', MigrateCommand)
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-
-    # 测试redis数据库
-    # from iHome import redis_store
-    # redis_store.set('name', 'heheheehehehehhe')
-
-    # 测试session:flask自带的session模块，用于存储session
-    # from flask import session
-    # session['name'] = 'sz07sz07'
-
-    return 'index'
-
-
 if __name__ == '__main__':
     # app.run()
+
+    print app.url_map
 
     manager.run()

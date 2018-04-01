@@ -8,6 +8,7 @@ from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from config import configs
+from iHome.utils.common import RegexConverter
 
 
 # 创建可以被外界导入的数据库连接对象
@@ -38,6 +39,9 @@ def get_app(config_name):
 
     # 使用session在flask扩展实现将session数据存储在redis
     Session(app)
+
+    # 需要现有路由转换器，后面html_blue中才可以直接匹配
+    app.url_map.converters['re'] = RegexConverter
 
     # 注册蓝图：为了解决导入api时，还没有redis_store，造成的ImportError: cannot import name redis_store
     from iHome.api_1_0 import api

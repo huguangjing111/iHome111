@@ -43,4 +43,8 @@ def get_app(config_name):
     from iHome.api_1_0 import api
     app.register_blueprint(api)
 
+    # 注册静态html文件加载时的蓝图
+    from iHome.web_html import html_blue
+    app.register_blueprint(html_blue)
+
     return app

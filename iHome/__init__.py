@@ -1,15 +1,14 @@
 # -*- coding:utf-8 -*-
 
 
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 import redis
-from flask_wtf.csrf import CSRFProtect
+from flask import Flask
 # session在flask中的扩展包
 from flask_session import Session
+from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
 from config import configs
-from iHome.index import api
-
+from iHome.api_1_0 import api
 
 # 创建可以被外界导入的数据库连接对象
 db = SQLAlchemy()

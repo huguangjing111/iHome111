@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 
-from flask import Blueprint
 
-
-api = Blueprint('api', __name__)
+from . import api
 
 
 @api.route('/', methods=['GET', 'POST'])
